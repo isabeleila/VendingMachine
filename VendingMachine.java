@@ -22,23 +22,39 @@ public class VendingMachine{
         //displays the amount of money the user enters
         public static void insertMoney(double amount){
             currentBalance += amount;
-            System.out.println("Current Balancee: $" + currentBalance);
+            System.out.println("Current Balance: $" + currentBalance);
         }
 
         //user can select the snack they want
         public static void selectSnack(int itemNum){
             if (itemNum > 0 && itemNum <=Items.length && Inventory[itemNum -1] >0){
                 double price = Prices[itemNum -1];
-                if (currentBalance >= price){
-                    Inventory[itemNum -1]--;
-                    currentBalance -= price;
-                    System.out.println("Dispensing " + Items[itemNum -1]);
-                    System.out.println("Your remaining balance is: $" + currentBalance);
-                } else {
-                    System.out.println("Sorry, there are insufficient funds. Please insert more cash.");
+                if(currentBalance >= price) {
+                    System.out.println("You Selected: " + Items[itemNum- 1] + "- $" + price); 
+                    System.out.println("Would you like to proceed with your purchase: (yes/no)"); 
+                    Scanner scanner = new Scanner(System.in); 
+                    String confirmation = scanner.nextLine().toLowerCase(); 
+
+
+                    if (currentBalance >= price){
+                        Inventory[itemNum -1]--;
+                        currentBalance -= price;
+                        System.out.println("Dispensing " + Items[itemNum -1]);
+                        System.out.println("Your remaining balance is: $" + currentBalance);
+                    } 
+                    
+                    else {
+                        System.out.println("Your transaction has been canceled, and your money is being returned. ");
+                    }
+                } 
+                
+                else {
+                System.out.println("Sorry, there are insufficient funds. Please insert more cash.");
                 }
-            } else {
-                System.out.println("You have made an invalid selection or the item you want is no longer available.");
+            }
+            
+            else {
+                System.out.println("You have made an invalid selection or the item you want is no longer available."); 
             }
         }
 
@@ -50,6 +66,10 @@ public class VendingMachine{
             } else {
                 System.out.println("No change due.");
             }
+        }
+
+        public static void departureMessage(){
+            System.out.println("Enjoy your snack and Have a Great Day!!" ); 
         }
 
 
@@ -86,11 +106,15 @@ public class VendingMachine{
                     vendingMachine.returnChange();
                     break;
                 case 4:
-                System.out.println("Thank you for using! Now exiting vending machine.");
+                    System.out.println("Thank you for using! Now exiting vending machine.");
+                    vendingMachine.departureMessage(); 
                 return;
                 default:
                     System.out.println("Invalid optin. Please enter a valid option number.");
+                    vendingMachine.departureMessage(); 
             }
         }
+        
     }
+    
 }

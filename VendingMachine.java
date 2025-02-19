@@ -103,6 +103,7 @@ public class VendingMachine{
                     vendingMachine.selectSnack(itemNum);
                     break;
                 case 3:
+                System.out.println("Your change has been returned to you.");
                     vendingMachine.returnChange();
                     break;
                 case 4:
